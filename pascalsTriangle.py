@@ -1,3 +1,6 @@
+# TC = O(n)
+# SC = O(n)
+
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
         a = [[1 for j in range(i)] for i in range(1,numRows+1)]
