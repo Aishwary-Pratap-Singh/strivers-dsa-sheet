@@ -1,3 +1,5 @@
+# TC = O(N)
+
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:
         """
