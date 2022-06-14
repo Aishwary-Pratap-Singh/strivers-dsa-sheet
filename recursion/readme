@@ -3,3 +3,8 @@ Work after function call ----> BACKTRACKING
 Infinite recursion
 *stack overflow
 *segmentation fault
+
+
+
+SUBSEQUENCE:
+* A contiguos or non-contiguous sequence following the order.
