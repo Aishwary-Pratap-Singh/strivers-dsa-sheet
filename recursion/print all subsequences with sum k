@@ -1,0 +1,23 @@
+from collections import deque
+def f(ind, ds, s):
+    if ind == n-1:
+        if sum == s:
+            print(ds)
+        return
+    
+    # take
+    ds.append(arr[ind])
+    s += arr[ind]
+    f(ind+1, ds, s)
+    ds.pop()
+    s -= arr[ind]
+    f(ind+1, ds, s)
+
+global arr    
+arr = [1,2,1]
+global sum
+sum = 2
+global n
+n = 3
+ds = deque()
+f(0, ds, sum )
