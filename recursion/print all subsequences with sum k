@@ -1,3 +1,5 @@
+# tc  2**n
+
 from collections import deque
 def f(ind, ds, s):
     if ind == n-1:
