@@ -1,4 +1,4 @@
-# tc  2**n
+# tc  (2**n) * k
 
 from collections import deque
 def f(ind, ds, s):
