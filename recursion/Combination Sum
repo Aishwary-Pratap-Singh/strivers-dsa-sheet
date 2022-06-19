@@ -1,0 +1,33 @@
+# tc = (2 ** t) * k
+
+from collections import deque
+
+class Solution:
+    
+    def f(self, i, target, ds, ans, arr):
+        
+        if i == len(arr):
+            if target == 0:
+                ans.append(list(ds))
+                
+                
+            return
+        
+#         take ele at index i
+        if arr[i] <= target:
+            ds.append(arr[i])
+            target -= arr[i]
+            self.f(i, target, ds, ans, arr)
+            ds.pop()
+            target += arr[i]
+            
+#         not take
+        self.f(i+1, target, ds, ans, arr)
+    
+        
+
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        ds = deque([])
+        ans = []
+        self.f(0, target, ds, ans, candidates)
+        return ans
