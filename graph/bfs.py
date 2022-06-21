@@ -6,7 +6,6 @@ class Solution:
     def bfsOfGraph(self, V, adj):
         # code here
         q = deque()
-        # print(adj)
         res = []
         vis = [False for i in range(V)]
     
