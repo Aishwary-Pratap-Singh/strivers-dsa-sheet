@@ -1,3 +1,4 @@
+    # O(V + E)
     def f(self,node,vis,adj,dfs):
         dfs.append(node)
         vis[node] = True
