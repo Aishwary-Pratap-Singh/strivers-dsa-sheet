@@ -1,3 +1,5 @@
+# tc - O(n)
+
 from collections import deque
 class Solution:
     
