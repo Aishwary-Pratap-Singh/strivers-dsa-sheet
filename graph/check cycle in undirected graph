@@ -1,0 +1,56 @@
+tc = O(V + E)
+
+class Solution:
+    
+    def checkCycle(self,s, v, adj, vis):
+        vis[s] = True
+        q = deque()
+        q.append([s, -1])
+        
+        while len(q) != 0:
+            cur = q.popleft()
+            node = cur[0]
+            par = cur[1]
+            
+            for i in adj[node]:
+                if vis[i] == False:
+                    q.append([i, node])
+                    vis[i] = True
+                    
+                elif i != par:
+                    return True
+                    
+        return False   
+    
+    #Function to detect cycle in an undirected graph.
+    def isCycle(self, v, adj):
+        #Code here
+        vis = [False for i in range(v)]
+        for i in range(v):
+            if vis[i] == False:
+                if self.checkCycle(i, v, adj, vis):
+                    return True
+        return False
+                
+            
+
+#{ 
+#  Driver Code Starts
+if __name__ == '__main__':
+
+    T=int(input())
+    for i in range(T):
+        V, E = map(int, input().split())
+        adj = [[] for i in range(V)]
+        for _ in range(E):
+            u, v = map(int, input().split())
+            adj[u].append(v)
+            adj[v].append(u)
+        obj = Solution()
+        ans = obj.isCycle(V, adj)
+        if(ans):
+            print("1")
+        else:
+            print("0")
+
+# } Driver Code Ends
