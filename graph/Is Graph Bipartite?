@@ -1,0 +1,43 @@
+# using bfs
+# if cycle exists of odd length -> can't be bipartite
+# else bipartite
+
+# tc = O(v + e)
+# sc = O(v + e) + O(v) + O(v)
+
+from collections import deque
+
+
+
+
+class Solution:
+    
+    def checkBfs(self, node, color, graph):
+        q = deque()
+        q.append(node)
+        color[node] = 1
+        while len(q) != 0:
+            nde = q.popleft()
+            for nbr in graph[nde]:
+                if color[nbr] == -1:
+                    color[nbr] = 1 - color[nde]
+                    q.append(nbr)
+                
+                elif color[nbr] == color[nde]:
+                    return False
+        return True
+    
+    def checkBipartite(self, graph):
+        n = len(graph)
+        color = [-1 for i in range(n)]
+        for node in range(n):
+            if color[node] == -1:
+                if self.checkBfs(node, color, graph) == False:
+                    return False
+        return True
+    
+                    
+    
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        return self.checkBipartite(graph)
+        
