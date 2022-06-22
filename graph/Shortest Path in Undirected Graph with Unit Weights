@@ -1,0 +1,36 @@
+# tc = O(v + e)
+
+import sys
+from collections import deque
+MAX_INT = sys.maxsize
+
+def shortestDist(n, adj, src):
+    dist = [MAX_INT for i in range(n)] 
+    dist[src] = 0
+    q = deque()
+    q.append(src)
+
+    while len(q) != 0:
+        node = q.popleft()
+        for nbr in adj[node]:
+            if dist[nbr] > 1+dist[node]:
+                dist[nbr] = 1 + dist[node]
+                q.append(nbr)
+    return dist
+
+
+
+
+
+# input
+n = 6
+adj = {
+    0 : [1,2],
+    1 : [0,2,3],
+    2 : [0,1,4],
+    3 : [1,5],
+    4 : [2,5],
+    5 : [3,4]
+}
+
+print(shortestDist(n, adj, 0))
