@@ -1,0 +1,18 @@
+#tc = O(n)
+#sc = O(n)
+
+class Solution:
+    
+    def ht(self,root):
+        if root is None:
+            return 0
+        
+        lht = self.ht(root.left)
+        rht = self.ht(root.right)
+        
+        return (1 + max(lht,rht))
+    
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        
+        return self.ht(root)
+        
