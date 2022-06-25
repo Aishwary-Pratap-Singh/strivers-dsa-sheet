@@ -1,0 +1,63 @@
+# sc = O(n) + O(n)
+# tc = O(n + e) log n
+import sys
+import heapq
+
+INT_MAX = sys.maxsize
+
+
+class Solution:
+
+    #Function to find the shortest distance of all the vertices
+    #from the source vertex S.
+    def dijkstra(self, v, adj, s):
+        #code here
+        dist = [INT_MAX for i in range(v)]
+        dist[s] = 0
+        pq = [ ]
+        
+        heapq.heapify(pq)
+        
+        heapq.heappush(pq,[0, s]) #[dist, node]
+        
+        while len(pq) > 0:
+            pair = heapq.heappop(pq)
+            node = pair[1]
+            dis = pair[0]
+            
+            for nbr in adj[node]:
+                nbr_node = nbr[0]
+                nbr_dis = nbr[1]
+                
+                if dis + nbr_dis < dist[nbr_node]:
+                    dist[nbr_node] = dis + nbr_dis 
+                    heapq.heappush(pq, [dist[nbr_node], nbr_node])
+                    
+        return dist
+        
+
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
+import atexit
+import io
+import sys
+
+
+if __name__ == '__main__':
+    test_cases = int(input())
+    for cases in range(test_cases):
+        V,E = map(int,input().strip().split())
+        adj = [[] for i in range(V)]
+        for i in range(E):
+            u,v,w = map(int,input().strip().split())
+            adj[u].append([v,w])
+            adj[v].append([u,w])
+        S=int(input())
+        ob = Solution()
+        
+        res = ob.dijkstra(V,adj,S)
+        for i in res:
+            print(i,end=" ")
+        print()
+# } Driver Code Ends
