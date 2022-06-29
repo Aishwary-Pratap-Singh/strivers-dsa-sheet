@@ -1,0 +1,36 @@
+class Solution:
+    
+    # tc = O(n*m)
+    
+    def f(self, ind1, ind2, s1, s2, dp):
+        
+#         base case
+        
+        if ind1 < 0 or ind2 < 0:
+            return 0
+        
+        
+        if dp[ind1][ind2] != -1:
+            return dp[ind1][ind2] 
+        
+#         char match
+        
+        if s1[ind1] == s2[ind2]:
+            dp[ind1][ind2] = 1 + self.f(ind1 - 1, ind2 - 1, s1, s2, dp)  
+            return dp[ind1][ind2]
+#         char do not match
+
+        cond1 = self.f(ind1-1, ind2, s1, s2, dp)
+        cond2 = self.f(ind1, ind2 - 1, s1, s2, dp)
+        
+        dp[ind1][ind2] = 0 + max(cond1, cond2)
+        return dp[ind1][ind2]
+        
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        n = len(text1)
+        m = len(text2)
+        
+        dp = [[-1 for j in range(m)]for i in range(n)]
+        
+        return self.f(len(text1) - 1, len(text2)- 1, text1, text2, dp)
+        
