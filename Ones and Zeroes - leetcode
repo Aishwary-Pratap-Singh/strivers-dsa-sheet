@@ -1,0 +1,35 @@
+class Solution:
+    
+    def count(self, st, arr):
+        for c in st:
+            if c == '0':
+                arr[0] += 1
+            if c == '1':
+                arr[1] += 1
+        
+    def f(self, zero, one, strs, ind, dp):
+        
+        if (zero + one) == 0 or ind < 0:
+            return 0
+        
+        if dp[zero][one][ind] != -1:
+            return dp[zero][one][ind]
+        
+        notPick = 0 + self.f(zero, one, strs, ind - 1, dp)
+        
+        # pick
+        cnt = [0, 0]
+        self.count(strs[ind], cnt)
+        pick = 0
+        if cnt[0] <= zero and cnt[1] <= one:
+            pick = 1 + self.f(zero - cnt[0], one - cnt[1], strs, ind - 1, dp)
+        # else:
+        #     pick = 0 + self.f(zero, one, strs, ind - 1)
+        
+        dp[zero][one][ind] = max(pick, notPick)
+        return dp[zero][one][ind]
+    
+    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
+        
+        dp = [[[-1 for k in range(len(strs))]for j in range(n+1)]  for i in range(m+1)]
+        return self.f(m , n, strs, len(strs)-1, dp)
