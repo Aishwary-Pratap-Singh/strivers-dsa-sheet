@@ -1,0 +1,85 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+# tc = O(n)
+# sc = O(n)
+
+from collections import deque
+class Solution:
+    
+    def markParent(self, root):
+        
+        q = deque()
+        par = dict()
+        
+        q.append(root)
+        
+        
+        while len(q) != 0:
+            level_size = len(q)
+            for i in range(level_size):
+                curr = q.popleft()
+
+                if curr.left != None:
+                    q.append(curr.left)
+                    par[curr.left] = curr
+
+                if curr.right != None:
+                    q.append(curr.right)
+                    par[curr.right] = curr
+        # print(par)
+        return par
+    
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+        
+        par = self.markParent(root)
+        # print(p)
+        
+        
+        vis = dict()
+        q = deque()
+        q.append(target)
+        vis[target] = True
+        cur_lvl = 0
+        
+        while len(q) != 0:
+            size = len(q)
+            if cur_lvl == k:
+                break
+            cur_lvl += 1
+            
+            for i in range(size):
+               
+                curr = q.popleft()
+                
+                if curr.left != None and curr.left not in vis:
+                    vis[curr.left] = True
+                    q.append(curr.left)
+                    
+                if curr.right != None and curr.right not in vis:
+                    q.append(curr.right)
+                    vis[curr.right] = True
+                    
+                if par.get(curr) != None and vis.get(par.get(curr)) == None:
+                    q.append(par[curr])
+                    vis[par[curr]] = True
+                    
+            for i in q:
+                print(i.val, end = " ")
+            print(cur_lvl)
+                    
+                
+        res = []
+        for i in q:
+            res.append(i.val)
+        return res
+        
+        
+        
+        
+        
+        
