@@ -1,0 +1,31 @@
+""" Node is defined as
+class node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+"""
+
+# tc = O(n)
+# sc = O(n)
+import sys
+INT_MAX = sys.maxsize
+INT_MIN = -INT_MAX
+
+def checkBST(root):
+  
+  return validBST(root, INT_MIN, INT_MAX)
+
+def validBST(root, INT_MIN, INT_MAX):
+  if root == None:
+    return True
+  
+  if INT_MIN >= root.data or root.data>= INT_MAX:
+    return False
+  
+  lt = validBST(root.left, INT_MIN, root.data)
+  rt = validBST(root.right, root.data, INT_MAX)
+  return lt and rt
+  
+  
+  
