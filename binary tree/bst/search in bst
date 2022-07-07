@@ -1,0 +1,49 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    
+    def preorder(self, root, res):
+        
+#         base case
+        if root == None:
+            return
+        
+        res.append(root.val)
+        self.preorder(root.left, res)
+        self.preorder(root.right, res)
+        
+        
+    
+    def f(self, root, res, val):
+        
+        if root == None:
+            return 
+        
+        if root.val == val :
+            # self.preorder(root, res)
+            res.append(root)
+            return True
+            
+        lt = self.f(root.left, res, val)
+        rt = self.f(root.right, res, val)
+        
+        if lt == True or rt == True:
+            return
+        
+    def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        
+        res = []
+        
+        self.f(root, res, val)
+        
+        # print(res)
+        # return res[0]
+        
+        if len(res) != 0:
+            return res[0]
+        return None
+        
