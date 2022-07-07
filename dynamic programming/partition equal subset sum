@@ -1,0 +1,34 @@
+class Solution:
+    
+    def f(self, nums, ind, tar, t):
+        
+        if tar == 0 :
+            # print("000000000000000")
+            return True
+        
+        if ind < 0:
+            # print("ffffffffffff")
+            return False
+        
+        if t[tar][ind] != -1:
+            return t[tar][ind]
+        take = False        
+        if tar >= nums[ind] :
+            take = self.f(nums, ind - 1, tar - nums[ind], t)
+        notTake = self.f(nums, ind - 1, tar, t)
+    
+        t[tar][ind] = take or notTake
+        return t[tar][ind]
+    
+    def canPartition(self, nums: List[int]) -> bool:
+        
+       
+        total = sum(nums)
+        
+        if total % 2 == 0:
+            tar = total // 2
+            t = [[-1 for j in range (len(nums))] for i in range(tar + 1)]
+            print("-------------")
+            return self.f(nums, len(nums) - 1, tar, t)
+        return False
+        
