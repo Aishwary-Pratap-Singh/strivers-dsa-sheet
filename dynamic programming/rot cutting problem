@@ -1,0 +1,51 @@
+# tc = O(n**2)
+
+import sys
+INT_MIN = -sys.maxsize
+
+class Solution:
+    
+    def f(self, price, n, ind, t):
+        
+        if ind == 0:
+            return price[0] * n
+        
+        
+        if t[n][ind] != -1:
+            return t[n][ind]
+            
+        rod_length = ind + 1
+        not_take = 0 + self.f(price, n, ind - 1, t )
+        take = INT_MIN
+        if rod_length <= n:
+            take = price[ind] + self.f(price, n - rod_length, ind, t)
+            
+        t[n][ind] = max(take, not_take)
+        return t[n][ind]
+            
+    
+    def cutRod(self, price, n):
+        #code here
+        t = [[-1 for j in range(n)]for i in range(n + 1)]
+        return self.f(price, n, n-1, t)
+
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
+
+def main():
+
+    T = int(input())
+
+    while(T > 0):
+        n = int(input())
+        a = [int(x) for x in input().strip().split()]
+        ob = Solution()
+        print(ob.cutRod(a, n))
+
+        T -= 1
+
+
+if __name__ == "__main__":
+    main()
+# } Driver Code Ends
