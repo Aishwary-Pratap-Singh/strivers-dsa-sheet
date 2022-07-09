@@ -1,0 +1,19 @@
+
+def  binary_search_recursive(arr, n, val, low, high):
+
+    # base case
+    if low > high :
+        return -1
+
+    mid = (low + high) // 2
+
+    if arr[mid] == val:
+        return mid
+
+    elif arr[mid] > val :
+        high = mid -1
+        return binary_search_recursive(arr, n, val, low, high)
+
+    else:
+        low = mid + 1
+        return binary_search_recursive(arr, n, val, low, high)
