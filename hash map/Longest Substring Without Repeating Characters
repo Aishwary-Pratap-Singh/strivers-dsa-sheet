@@ -1,0 +1,28 @@
+tc O(n)
+sc O(n)
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        n = len(s)
+        
+        left = 0
+        right = 0
+        longest_substring = 0
+        char_index = dict()
+        
+        while right < n :
+            if char_index.get(s[right]) != None :
+                
+                left = max(char_index.get(s[right]) + 1, left)
+                
+            char_index[s[right]] = right
+            curr_length = right - left + 1
+                
+            longest_substring = max(longest_substring, curr_length)
+           
+                
+            right += 1
+        return longest_substring
+
+            
+        
