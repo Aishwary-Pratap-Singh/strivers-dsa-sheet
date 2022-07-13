@@ -1,43 +1,36 @@
-
-# tc = O(n * m)
+import sys
+INT_MAX = sys.maxsize
 
 class Solution:
     
-    def f(self, coins, n, i, t) :
+    def countCoins(self, coins, ind, tar, t) :
         
-        if i < 0:
+        if tar == 0 :
             return 0
+        
+        if ind  < 0 :
+            return INT_MAX
+        
+        if t[ind][tar] != -1 :
+            return t[ind][tar]
+        
+        take = INT_MAX
+        if coins[ind] <= tar :
+            take = 1 + self.countCoins(coins, ind, tar - coins[ind], t)
             
-        if n < 0:
-            return 0
-            
-        if n == 0 :
-            return 1
+        notTake = 0 + self.countCoins(coins, ind - 1, tar, t)
         
-        if t[n][i] != -1 :
-            return t[n][i]
-        t[n][i] = self.f(coins, n, i-1, t) + self.f(coins, n - coins[i] , i, t)
-        return t[n][i]
+        t[ind][tar] = min(take, notTake)
+        return t[ind][tar]
         
-    def count(self, S, m, n): 
-        # code here 
+    
+    
+    def coinChange(self, coins: List[int], amount: int) -> int:
         
-        t = [[-1 for j in range(len(S))]for i in range(n+1)]
-        return self.f(S, n, len(S) - 1, t)
+        n = len(coins)
+        t = [[-1 for j in range(amount + 1)]for i in range(n)]
+        ans = self.countCoins(coins, n -1, amount, t)
+        if ans == INT_MAX :
+            return -1
         
-
-#{ 
-#  Driver Code Starts
-#Initial Template for Python 3
-
-import sys
-sys.setrecursionlimit(10**6)
-
-if __name__ == '__main__': 
-    t = int(input())
-    for _ in range(t):
-        n,m = list(map(int, input().strip().split()))
-        S = list(map(int, input().strip().split()))
-        ob = Solution()
-        print(ob.count(S,m,n))
-# } Driver Code Ends
+        return ans
