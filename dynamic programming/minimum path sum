@@ -1,0 +1,30 @@
+import sys
+class Solution:
+    def f(self,i,j, mat,dp):
+        n = len(mat)
+        m = len(mat[0])
+        # base
+        
+        
+        
+        if i == n-1 and j == m-1:
+            return mat[i][j]
+            
+        # overflow
+        if i >= n or j >= m:
+            return sys.maxsize
+        
+        if dp[i][j] != -1:
+            return dp[i][j]
+            
+        right = mat[i][j] + self.f(i,j+1,mat,dp)
+        down = mat[i][j] + self.f(i+1,j,mat,dp)
+        
+        dp[i][j] = min(right,down)
+        return min(right,down)
+    
+    
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        dp = [[-1 for j in range(len(grid[0]))] for i in range(len(grid))]
+        return self.f(0,0,grid,dp)
+        
