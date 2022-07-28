@@ -1,0 +1,29 @@
+class Solution:
+    
+    def f(self, row, col, grid, n, m):
+        
+        if (row < 0) or (col < 0) or (row >= n) or (col >= m) or (grid[row][col] == '0')  :
+            return
+        
+
+        
+        grid[row][col] = '0'
+
+        self.f(row - 1, col, grid, n, m)
+        self.f(row + 1, col, grid, n, m)
+        self.f(row , col + 1, grid, n, m)
+        self.f(row , col - 1, grid, n, m)
+
+        
+    
+    
+    def numIslands(self, grid: List[List[str]]) -> int:
+        row = len(grid)
+        col = len(grid[0])
+        n = 0
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == '1' :
+                    self.f(i,j, grid, row, col)
+                    n += 1
+        return n
